@@ -132,6 +132,10 @@ class PunchController extends Controller
         $user = Auth::guard('api')->user(); // ✅ 適用 JWT
         $currentTime = Carbon::now(); // ✅ 使用伺服器時間
 
+        //如果有當天日期的資料，會先刪除後再新增
+        // PunchOut::where('user_id', $user->id)
+        //     ->whereDate('timestamp', $currentTime->toDateString())->delete();
+
         // 建立下班打卡，預設為有效
         $punchOut = PunchOut::create([
             'user_id' => $user->id,
